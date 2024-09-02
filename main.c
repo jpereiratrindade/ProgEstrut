@@ -1,11 +1,19 @@
 #include <stdio.h>
 #include <locale.h>
 
+union dados {
+    int inteiro;
+    float decimal;
+    char caractere;
+};
+
 void firstExerc();
 void calculadora();
 void descubraWhile();
 void descubraFor();
 int ParImpar(int valor);
+void testeUnion();
+unsigned long long fatorial(int n);
 
 int main()
 {
@@ -24,6 +32,7 @@ int main()
     //descubraFor();
 
     //Função par ou impar
+/*    
     int valor = 0;
 
     printf("Digite valor para verificar se é par ou não: ");
@@ -37,7 +46,23 @@ int main()
         printf("O valor %i é ímpar!\n", valor);
     }
     
-    
+    int x = 10;
+
+    int *p_x;
+
+    p_x = &x;
+
+    printf("Imprime %d\n" , *p_x);
+*/
+    //Testa o uso de union
+    //testeUnion();
+
+
+    //Testa o uso de função recursiva
+    int num = 5;
+    unsigned long long resultado = fatorial(num);
+    printf("%d! = %llu\n", num, resultado);
+
 
     return 0;
 }
@@ -144,3 +169,35 @@ int ParImpar(int valor)
     }
     
 }
+//******************************************************************************************
+void testeUnion()
+{
+    union dados dado;
+
+    dado.inteiro = 10;
+    printf("Inteiro: %d\n", dado.inteiro);
+
+    dado.decimal = 3.14;
+    printf("Decimal: %.2f\n", dado.decimal);
+
+    dado.caractere = 'A';
+    printf("Caractere: %c\n", dado.caractere);
+
+    // Atenção: cada novo valor sobrescreve o anterior
+    printf("Depois de atribuir caractere:\n");
+    printf("Inteiro: %d\n", dado.inteiro);   // Valor é sobrescrito, resultado indeterminado
+    printf("Decimal: %.2f\n", dado.decimal); // Valor é sobrescrito, resultado indeterminado
+    printf("Caractere: %c\n", dado.caractere); // Mostra o valor de 'A'
+
+}
+//******************************************************************************************
+// Função recursiva para calcular o fatorial
+unsigned long long fatorial(int n)
+{
+    if (n == 0 || n == 1) {
+        return 1; // Caso base
+    } else {
+        return n * fatorial(n - 1); // Chamada recursiva
+    }
+}
+//******************************************************************************************
